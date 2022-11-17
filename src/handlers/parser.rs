@@ -2,7 +2,6 @@ use std::iter;
 
 use clap::{Parser, Subcommand};
 use dptree::case;
-use futures::future::ok;
 use proc_qq::{FriendMessageEvent, GroupMessageEvent, MessageContentTrait};
 
 use crate::dp_helper::{EVHandler, UpdateKind};

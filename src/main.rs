@@ -75,10 +75,12 @@ async fn main() -> Result<()> {
     let db = DB::connect(&config.mongodb.uri, &config.mongodb.database).await?;
     info!("Manage token: {}", token);
     let client = ClientBuilder::new()
-        .priority_session(std::env::var("SESSION_FILE").unwrap_or("session.token".to_string()))
+        .priority_session(
+            std::env::var("SESSION_FILE").unwrap_or_else(|_| "session.token".to_string()),
+        )
         .authentication(QRCode)
         .device(JsonFile(
-            std::env::var("DEVICE_FILE").unwrap_or("device.json".to_string()),
+            std::env::var("DEVICE_FILE").unwrap_or_else(|_| "device.json".to_string()),
         ))
         .version(&ANDROID_WATCH)
         .modules(vec![dp_helper::module(

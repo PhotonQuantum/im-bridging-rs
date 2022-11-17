@@ -17,6 +17,7 @@ use proc_qq::{
 
 use crate::dp_helper::{EVHandler, UpdateKind};
 
+#[allow(clippy::upper_case_acronyms)]
 #[derive(Debug, Clone, Default)]
 pub struct OTP {
     otps: Arc<DashSet<String>>,
