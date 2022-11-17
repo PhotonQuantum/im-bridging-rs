@@ -1,0 +1,44 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  fmt:
+    name: Fmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout 🛎️
+      - run: rustup update && rustup show
+        name: Setup Cargo Toolchain 🛎️
+      - run: cargo fmt --check
+        name: Check Code Format 🔧
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout 🛎️
+      - run: rustup update && rustup show
+        name: Setup Cargo Toolchain 🛎️
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo clippy --workspace --tests
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        name: Checkout 🛎️
+      - run: rustup update && rustup show
+        name: Setup Cargo Toolchain 🛎️
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo build
+        name: Test build
