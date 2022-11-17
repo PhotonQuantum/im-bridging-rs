@@ -1,0 +1,5 @@
+/target
+docker-compose.yml
+/data
+device.json
+session.token

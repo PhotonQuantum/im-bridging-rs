@@ -1,0 +1,27 @@
+version: "3"
+services:
+  im-bridging-rs:
+    build: ./
+    depends_on:
+      - mongodb
+    restart: on-failure
+    volumes:
+      - ./data/im-bridging-rs:/data
+    environment:
+      - RUST_LOG=debug
+      - RUST_BACKTRACE=1
+      - IM_BRIDGE_QRCODE_DOMAIN=mg.example.com
+      - IM_BRIDGE_QRCODE_APIKEY=key-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      - IM_BRIDGE_QRCODE_TO=to@example.com
+      - IM_BRIDGE_MONGODB_URI=mongodb://mongodb:27017
+      - IM_BRIDGE_MONGODB_DATABASE=im-bridging
+  mongodb:
+    image: mongo:6.0
+    restart: on-failure
+    volumes:
+      - ./data/mongodb:/data/db
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_DATABASE=im-bridging
+
